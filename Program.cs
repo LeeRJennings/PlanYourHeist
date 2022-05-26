@@ -9,6 +9,8 @@ namespace PlanYourHeist
         {
             int bankDifficultyLevel = 100;
             int skillSum = 0;
+            int heistLuck = new Random().Next(-10, 10);
+            bankDifficultyLevel += heistLuck;
 
             Console.WriteLine("Plan Your Heist!");
 
@@ -22,10 +24,10 @@ namespace PlanYourHeist
                 
                 if (memberName != "")
                 {
-                    Console.WriteLine("Please enter your team member's skill level.");
+                    Console.WriteLine("Please enter your team member's skill level (0 - 100)");
                     int memberSkillLevel = int.Parse(Console.ReadLine());
                     
-                    Console.WriteLine("Please enter your team member's courage factor.");
+                    Console.WriteLine("Please enter your team member's courage factor (0.0 - 0.2)");
                     decimal memberCourageFactor = decimal.Parse(Console.ReadLine());
 
                     TeamMember newGuy = new TeamMember(memberName, memberSkillLevel, memberCourageFactor);
@@ -45,6 +47,9 @@ namespace PlanYourHeist
             {
                 skillSum += member.SkillLevel;
             }
+
+            Console.WriteLine($"Your crew's skill level: {skillSum}");
+            Console.WriteLine($"The Bank's difficulty level: {bankDifficultyLevel}");
 
             if(skillSum >= bankDifficultyLevel)
             {
