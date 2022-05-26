@@ -7,6 +7,9 @@ namespace PlanYourHeist
     {
         static void Main(string[] args)
         {
+            int bankDifficultyLevel = 100;
+            int skillSum = 0;
+
             Console.WriteLine("Plan Your Heist!");
 
             List<TeamMember> memberList = new List<TeamMember>();
@@ -28,8 +31,6 @@ namespace PlanYourHeist
                     TeamMember newGuy = new TeamMember(memberName, memberSkillLevel, memberCourageFactor);
                     memberList.Add(newGuy);
 
-                    
-
                     addMember();
                 }
                 else 
@@ -42,7 +43,16 @@ namespace PlanYourHeist
 
             foreach (TeamMember member in memberList)
             {
-                Console.WriteLine($"{member.Name} has a skill level of {member.SkillLevel} and a courage factor of {member.CourageFactor}.");
+                skillSum += member.SkillLevel;
+            }
+
+            if(skillSum >= bankDifficultyLevel)
+            {
+                Console.WriteLine("Let's rob a bank!!!");
+            }
+            else
+            {
+                Console.WriteLine("Nah dude, not with that crew, buncha jabronis");
             }
         }
     }
