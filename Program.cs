@@ -7,10 +7,10 @@ namespace PlanYourHeist
     {
         static void Main(string[] args)
         {
-            int bankDifficultyLevel = 100;
-            int skillSum = 0;
-
             Console.WriteLine("Plan Your Heist!");
+            Console.WriteLine("What is the bank's difficulty level?");
+            int bankDifficultyLevel = int.Parse(Console.ReadLine());
+            int bankLevelCheck = bankDifficultyLevel;
 
             List<TeamMember> memberList = new List<TeamMember>();
             addMember();
@@ -41,18 +41,20 @@ namespace PlanYourHeist
             
             Console.WriteLine($"Number of team members: {memberList.Count}");
 
-            
+            int skillSum = 0;
+            foreach (TeamMember member in memberList)
+            {
+                skillSum += member.SkillLevel;
+            }
 
             Console.WriteLine("How many trial runs would you like to do?");
             int trialRuns = int.Parse(Console.ReadLine());
 
+            int successfulTrials = 0;
+            int failedTrials = 0;
+
             for (int i = 0; i < trialRuns; i++)
             {
-                foreach (TeamMember member in memberList)
-                {
-                    skillSum += member.SkillLevel;
-                }
-                
                 int heistLuck = new Random().Next(-10, 10);
                 bankDifficultyLevel += heistLuck;
 
@@ -62,15 +64,20 @@ namespace PlanYourHeist
                 if(skillSum >= bankDifficultyLevel)
                 {
                     Console.WriteLine("Let's rob a bank!!!");
+                    successfulTrials++;
                 }
                 else
                 {
                     Console.WriteLine("Nah dude, not with that crew, buncha jabronis");
+                    failedTrials++;
                 }
 
                 Console.WriteLine("-------------------------------------------");
-                skillSum = 0;
+                bankDifficultyLevel = bankLevelCheck;
             }
+
+            Console.WriteLine($"Successful runs: {successfulTrials}");
+            Console.WriteLine($"Failed runs: {failedTrials}");
         }
     }
 }
