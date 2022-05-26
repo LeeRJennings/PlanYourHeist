@@ -9,8 +9,6 @@ namespace PlanYourHeist
         {
             int bankDifficultyLevel = 100;
             int skillSum = 0;
-            int heistLuck = new Random().Next(-10, 10);
-            bankDifficultyLevel += heistLuck;
 
             Console.WriteLine("Plan Your Heist!");
 
@@ -43,21 +41,35 @@ namespace PlanYourHeist
             
             Console.WriteLine($"Number of team members: {memberList.Count}");
 
-            foreach (TeamMember member in memberList)
-            {
-                skillSum += member.SkillLevel;
-            }
+            
 
-            Console.WriteLine($"Your crew's skill level: {skillSum}");
-            Console.WriteLine($"The Bank's difficulty level: {bankDifficultyLevel}");
+            Console.WriteLine("How many trial runs would you like to do?");
+            int trialRuns = int.Parse(Console.ReadLine());
 
-            if(skillSum >= bankDifficultyLevel)
+            for (int i = 0; i < trialRuns; i++)
             {
-                Console.WriteLine("Let's rob a bank!!!");
-            }
-            else
-            {
-                Console.WriteLine("Nah dude, not with that crew, buncha jabronis");
+                foreach (TeamMember member in memberList)
+                {
+                    skillSum += member.SkillLevel;
+                }
+                
+                int heistLuck = new Random().Next(-10, 10);
+                bankDifficultyLevel += heistLuck;
+
+                Console.WriteLine($"Your crew's skill level: {skillSum}");
+                Console.WriteLine($"The bank's difficulty level: {bankDifficultyLevel}");
+
+                if(skillSum >= bankDifficultyLevel)
+                {
+                    Console.WriteLine("Let's rob a bank!!!");
+                }
+                else
+                {
+                    Console.WriteLine("Nah dude, not with that crew, buncha jabronis");
+                }
+
+                Console.WriteLine("-------------------------------------------");
+                skillSum = 0;
             }
         }
     }
